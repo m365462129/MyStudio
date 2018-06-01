@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: 09c307ac4c37c6a41b91a0ce9fd8e984
+timeCreated: 1508314943
+licenseType: Pro
+AudioImporter:
+  externalObjects: {}
+  serializedVersion: 6
+  defaultSettings:
+    loadType: 0
+    sampleRateSetting: 0
+    sampleRateOverride: 44100
+    compressionFormat: 1
+    quality: 0.7
+    conversionMode: 0
+  platformSettingOverrides: {}
+  forceToMono: 0
+  normalize: 1
+  preloadAudioData: 1
+  loadInBackground: 0
+  ambisonic: 0
+  3D: 1
+  userData: 
+  assetBundleName: wushik/sound/common/woman/single_13.bytes
+  assetBundleVariant: 

@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: da0fcae8f193f4f41bf71f3e6c96181c
+timeCreated: 1503309844
+licenseType: Pro
+AudioImporter:
+  serializedVersion: 6
+  defaultSettings:
+    loadType: 0
+    sampleRateSetting: 0
+    sampleRateOverride: 44100
+    compressionFormat: 1
+    quality: 0.79999995
+    conversionMode: 0
+  platformSettingOverrides: {}
+  forceToMono: 0
+  normalize: 1
+  preloadAudioData: 1
+  loadInBackground: 0
+  3D: 1
+  userData: 
+  assetBundleName: guandan/sound/woman/3z1.bytes
+  assetBundleVariant: 

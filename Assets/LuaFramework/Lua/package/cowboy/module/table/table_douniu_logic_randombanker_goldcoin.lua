@@ -1,0 +1,62 @@
+
+local class = require("lib.middleclass")
+local TableDouNiuLogic = require("package/cowboy/module/table/table_douniu_logic_randombanker")
+--- @class TableDouNiuLogic_RandomBanker_GoldCoin:TableDouNiuLogic_RandomBanker
+---@field tableModule CowBoy_TableModule
+---@field tableModel CowBoy_TableModel
+---@field tableHelper CowBoy_TableHelper
+---@field tableView CowBoy_TableView
+local TableDouNiuLogic_RandomBanker_GoldCoin = class('TableDouNiuLogic_RandomBanker_GoldCoin', TableDouNiuLogic)
+local TableDouNiuLogic_GoldCoin = require("package/cowboy/module/table/table_douniu_logic_goldcoin")
+
+function TableDouNiuLogic_RandomBanker_GoldCoin :initialize(...)
+    self.parentClass = TableDouNiuLogic
+    TableDouNiuLogic_GoldCoin.initialize(self, ...)
+end
+
+TableDouNiuLogic_RandomBanker_GoldCoin.initTableSeatData = TableDouNiuLogic_GoldCoin.initTableSeatData
+
+--同步消息
+TableDouNiuLogic_RandomBanker_GoldCoin.on_table_synchronize_notify = TableDouNiuLogic_GoldCoin.on_table_synchronize_notify
+
+TableDouNiuLogic_RandomBanker_GoldCoin.on_table_start_notify = TableDouNiuLogic_GoldCoin.on_table_start_notify
+
+TableDouNiuLogic_RandomBanker_GoldCoin.on_table_ago_settle_accounts_notify = TableDouNiuLogic_GoldCoin.on_table_ago_settle_accounts_notify
+
+TableDouNiuLogic_RandomBanker_GoldCoin.on_table_settleAccounts_Notify = TableDouNiuLogic_GoldCoin.on_table_settleAccounts_Notify
+
+TableDouNiuLogic_RandomBanker_GoldCoin.table_settle_effect = TableDouNiuLogic_GoldCoin.table_settle_effect
+
+TableDouNiuLogic_RandomBanker_GoldCoin.check_need_ready_fun = TableDouNiuLogic_GoldCoin.check_need_ready_fun
+
+TableDouNiuLogic_RandomBanker_GoldCoin.on_click_goldcoin_bet_btn = TableDouNiuLogic_GoldCoin.on_click_goldcoin_bet_btn
+
+TableDouNiuLogic_RandomBanker_GoldCoin.on_click_setting_btn = TableDouNiuLogic_GoldCoin.on_click_setting_btn
+
+TableDouNiuLogic_RandomBanker_GoldCoin.getDefaultBetScore = TableDouNiuLogic_GoldCoin.getDefaultBetScore
+
+TableDouNiuLogic_RandomBanker_GoldCoin.on_table_ready_rsp = TableDouNiuLogic_GoldCoin.on_table_ready_rsp
+
+TableDouNiuLogic_RandomBanker_GoldCoin.startContinueBtn = TableDouNiuLogic_GoldCoin.startContinueBtn
+
+TableDouNiuLogic_RandomBanker_GoldCoin.startWaitContinue = TableDouNiuLogic_GoldCoin.startWaitContinue
+
+TableDouNiuLogic_RandomBanker_GoldCoin.getCanQiangZhuangScoreList = TableDouNiuLogic_GoldCoin.getCanQiangZhuangScoreList
+
+TableDouNiuLogic_RandomBanker_GoldCoin.getCanXiaZhuScoreList = TableDouNiuLogic_GoldCoin.getCanXiaZhuScoreList
+
+TableDouNiuLogic_RandomBanker_GoldCoin.on_reset_notify = TableDouNiuLogic_GoldCoin.on_reset_notify
+
+TableDouNiuLogic_RandomBanker_GoldCoin.getMaxQiangZhuangBeiShu = TableDouNiuLogic_GoldCoin.getMaxQiangZhuangBeiShu
+
+TableDouNiuLogic_RandomBanker_GoldCoin.on_click_goldcoin_exit_btn = TableDouNiuLogic_GoldCoin.on_click_goldcoin_exit_btn
+
+TableDouNiuLogic_RandomBanker_GoldCoin.on_click_wanfashuoming_btn = TableDouNiuLogic_GoldCoin.on_click_wanfashuoming_btn
+
+TableDouNiuLogic_RandomBanker_GoldCoin.can_invite_wechat_friend = TableDouNiuLogic_GoldCoin.can_invite_wechat_friend
+
+TableDouNiuLogic_RandomBanker_GoldCoin.get_max_paixing_beishu = TableDouNiuLogic_GoldCoin.get_max_paixing_beishu
+
+TableDouNiuLogic_RandomBanker_GoldCoin.playCoinFlySound = TableDouNiuLogic_GoldCoin.playCoinFlySound
+
+return TableDouNiuLogic_RandomBanker_GoldCoin

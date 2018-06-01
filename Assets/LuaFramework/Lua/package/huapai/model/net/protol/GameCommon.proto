@@ -1,0 +1,68 @@
+syntax = "proto2";
+
+//本文件定义客户端与游戏服务器的交互命令
+
+//----------------------------------------------------------------------------------
+
+//以下为客户端发给服务器的动作
+
+//命令ID: 1007，重新开始下一局
+message ACTION_RESTART
+{
+	optional int32 Piao = 1;//漂的分数
+	optional int32 Pao = 2;
+	optional bool DiTuo = 3;
+}
+
+//命令ID：1020，选漂、选尊等
+message ACTION_PIAO
+{
+	required int32 PiaoNum = 1;	//漂、尊的分数
+	optional int32 Pao = 2;		//跑分
+	optional bool DiTuo = 3;
+}
+
+// 命令ID: 1100，牌局托管
+message ACTION_INTRUST
+{
+	required int32 type = 1; // 1:托管 2:取消托管 (目前比赛场房间由服务端主动托管，客户端只需在可取消时取消托管)
+}
+
+//----------------------------------------------------------------------------------
+
+//以下为服务器发给客户端的信息
+
+//命令ID：1002，用户准备状态
+message READY_STATE
+{
+	required bool Ready = 1;		//是否已经准备（未准备需要显示准备UI）
+	required int32 PiaoType = 2;		//漂、尊等中间流程显示类型：0、无；1、漂
+	required int32 PiaoNum = 3;		//每局开始选的尊数（宿松：类似加漂）
+	required int32 SeatID = 4;		//显示用的座位ID（选座位）
+	required uint64 UserID = 5; 		//用户ID。为0表示该座位的上的用户已离开
+	optional int32 Pao = 6;			//跑分
+	optional bool DiTuo = 7 ; 		//是否抵坨
+}
+message USER_STATE
+{
+	repeated READY_STATE State = 1;		//每个用户是否已准备
+	optional int32 msgtype = 2;			//0、正常；1、随机座位
+	optional int32 randomseat = 3;		//是否随机座位：0、不随机；1、随机
+	optional uint32 ZhuangJia = 4;		//庄家的座位号
+	optional bool DiceType = 5;		//骰子类型：0、不投骰；1、要投骰
+}
+
+//---------------------------------------------------------------------------------------------------------------
+message RecordConfig
+{
+	required int32 version = 1;			//录像版本数据
+	required string gamerule = 2;			//游戏规则
+	repeated int32 seatmap = 3;			//座位映射数据
+	optional int32 roomid = 4;			//新增房间ID
+	optional int32 hallnum = 5;			//棋牌馆号
+	repeated uint32 piaonum = 6;			//漂分，同state里面的piaonum
+	repeated uint32 paonum = 7;			//漂分，同state里面的pao
+	optional int32 roundcount = 8;			//房间总局数
+	repeated bool dituo = 9;          //邓州麻将是否抵坨
+}
+

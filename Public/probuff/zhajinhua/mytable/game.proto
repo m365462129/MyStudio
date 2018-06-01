@@ -1,0 +1,249 @@
+syntax = "proto2";
+package Game;
+
+message Player {
+    message Operation {
+        optional int32 playerid = 1;
+        optional int32 operation = 2; //操作类型 2 下注 3 跟注 4 加注 5 比牌 6弃牌
+        optional int32 score = 3; //操作分数
+    }
+    required int32 player_id = 1; //玩家ID
+    required int32 player_pos = 2; //玩家位置
+    required int32 enter_cnt = 3; //进入次数
+    required bool is_offline = 4; //是否掉线
+    required bool is_owner = 5; //是否为房间所有者
+    required bool is_ready = 6;
+    required int32 score = 7; //积分
+    required int32 win_cnt = 8; //胜利次数
+    required int32 lost_cnt = 9; //失败次数
+    repeated int32 compareid = 10; //已经比牌玩家列表
+    optional bool viewcard = 11; //是否已经看牌1
+    optional int32 play_state = 12; //玩家状态 0 未开始牌局 1 在牌局中正常进行 2在牌局中已经弃牌 3在牌局中比牌比输
+    repeated int32 cards = 13; //只有已经看牌了才有
+    optional Operation last_operation = 14; //玩家的上一个操作
+    optional int32 in_score = 15; //在奖池中的分数
+    optional int32 coinBalance = 16; //金币余额
+    optional int32 in_gold = 17; //操作玩家在奖池中的金币
+    optional int32 cur_game_loop_cnt = 18; //玩家进行的游戏局数
+    optional int32 cur_follow_score = 19; //当前实际跟注的筹码
+}
+//单播 游戏信息 登录或者断线重连时发送
+message GameInfo {
+    required int32 room_id = 1; //房间号
+    repeated Player players = 2;
+    required int32 game_loop_cnt = 3; //当前游戏局数
+    required int32 game_total_cnt = 4; //游戏总局数
+    optional int32 cur_operation_player = 5; //当前操作的玩家id、（如果是断线重连当前操作的玩家会收到开始操作通知包）
+    required int32 time = 7; //服务器时间cuo
+    optional int32 rate = 8; //底分
+    optional bool is_deal = 9; //是否已经发牌
+    optional int32 cur_score = 10; //当前单柱筹码
+    optional int32 brankerid = 11; //庄家id
+    optional int32 cur_circle = 12; //当前轮数
+    optional int32 room_state = 13; //房间状态 0 未开始 1 已开始 2 已结算
+    optional int32 max_circle = 14; //上限轮数
+    optional int32 pool_score = 15; //奖池中的分数
+    optional int32 baseCoinScore = 16; //底分
+    optional int32 pool_gold = 17; //奖池金币
+    optional int32 feeNum = 18; //台费
+    optional int32 auto_ready_time = 19; //准备倒计时时间
+    optional int32 auto_op_time = 20; //操作倒计时时间
+    optional int32 owner = 21; //房主
+    optional int32 xuepin_status = 22; //血拼状态  0 不是 1 是
+    optional int32 xuepin_id = 23; //血拼发起者
+	optional int32 minJoinCoin = 24;  //入场金币
+    optional int32 minForceExitCoin   = 25;  //离场金币
+	optional int32 winner = 26 ;//赢家，room_state = 2才有意义
+
+}
+
+//广播 结算信息 一把打玩发送
+message CurrentGameAccount {
+    message Player {
+        optional int32 player_id = 1; //玩家ID
+        optional int32 score = 2; //总积分
+        optional int32 win_cnt = 3; //胜利次数
+        optional int32 lost_cnt = 4; //失败次数
+        repeated int32 compareid = 5; //比牌记录
+        optional int32 single_max = 6; //单局最高分数
+        optional int32 max_type = 7; //最高牌型    1 单牌 2对子 3顺子 4金花 5 顺金 6豹子 7特殊牌型
+        repeated int32 cards = 8; //玩家手牌
+        optional bool is_ready = 9; //是否已经准备 没有准备需要显示准备按钮
+        optional int32 normal_win_score = 10; //本局输赢分数（不算豹子顺金加分）
+        repeated int32 shunjin = 11; //顺金数据 [我的顺金总个数，本局顺金加分，本局别人顺金扣分,本局顺金总输赢]
+        repeated int32 baozi = 12; //豹子数据 [我的豹子总个数，本局豹子加分，本局别人豹子扣分，本局豹子总输赢]
+        optional int32 all_win_score = 13; //本局输赢总分数
+        optional int32 restCoin = 15; //金币场未结清的输赢
+        optional int32 Coin = 16; //金币场实际输赢
+        optional int32 coinBalance = 17; //金币余额
+        optional int32 allCoin = 18; //总结算输赢
+    }
+    repeated Player players = 1;
+    optional string endTime = 2; //牌局结束时间(秒)
+    optional int32 game_count = 3; //总游戏局数
+    optional bool is_summary_account = 4; //是否大结
+    optional bool is_free_room = 5; //是否是解散房间
+    optional string startTime = 6; //牌局开始时间(秒)
+    optional int32 winnerid = 7; //赢家id
+    optional int32 pool_score = 8; //奖池总分数
+    optional int32 add_type = 9; // 0 无 1 豹子加分 2顺金加分 3 豹子顺金都加分
+    optional int32 branker = 10; //庄
+    optional int32 pool_gold = 11; //奖池总金币数
+    optional int32 ready_time = 12; //准备时间
+    optional int32 show_time = 13; //亮牌时间
+    optional int32 free_sponsor = 14; //发起解散者
+}
+
+//扣除底注发牌通知
+message DeductNotify {
+    message Player {
+        optional int32 playerid = 1; //玩家id
+        optional int32 score = 2; //玩家分数
+        optional int32 coinBalance = 3; //玩家金币
+        optional int32 in_score = 4;
+        optional int32 in_gold = 5;
+    }
+    repeated Player players = 3; //玩家分数
+    optional int32 antes = 4; //底注
+    optional int32 pool_score = 5; //奖池分数
+    optional int32 game_loop_cnt = 6; //第几局
+    optional int32 brankerid = 7; //庄家id
+    optional int32 pool_gold = 8; //底池金币
+}
+
+//开始操作通知
+message StartOperationNotify {
+    message AddList {
+        optional int32 score = 1; //分数
+        optional bool can_add = 2; //改分数是不是可以点击
+    }
+    message OperationList {
+        optional bool kanpai = 1; //是否可以看牌     字段废弃
+        optional bool xiazhu = 2; //下注
+        optional bool genzhu = 3; //跟注
+        optional bool jiazhu = 4; //加注
+        optional bool bipai = 5; //比牌
+        optional bool qipai = 6; //弃牌        字段废弃
+        repeated AddList add_list = 7; //可以加注列表  (2,3,4,5)(4,6,8,10)
+        optional int32 cur_follow_score = 8; //当前实际跟注分数
+        optional bool allin = 9; //血拼
+        optional int32 allin_gold = 10; //血拼金币
+		optional int32 allin_score = 11; //血拼分数
+    }
+    message GlobalOperation {
+        optional int32 playerid = 1;
+        optional bool kanpai = 2;
+        optional bool qipai = 3;
+    }
+    optional int32 playerid = 1; //玩家id
+    optional int32 verify_circle = 2; //验证轮数
+    optional int32 cur_score = 3; //当前单柱分数
+    optional int32 circle = 4; //打牌轮数
+    optional OperationList op_list = 5; //可以操作的列表
+    repeated GlobalOperation global_op_list = 6; //全局可以操作的列表  看牌（1）和弃牌（6）
+    optional int32 auto_time = 7; //自动操作时间
+}
+
+//操作请求
+message OperationReq {
+    optional int32 op = 1; //操作 1，看牌 2 下注 3 跟注 4 加注 5 比牌 6弃牌 7 亮牌 8血拼
+    optional int32 add_score = 2; //加注分数
+    optional int32 verify_circle = 3; //验证轮数
+    optional int32 compare_playerid = 4; //比牌玩家id
+}
+//金币不足通知
+message GoldNotEnoughNotify {
+    optional int32 playerid = 1;
+    optional int32 time = 2;
+}
+//充值请求，点开商店页面后发送
+message RechargeRet {
+    optional bool open = 1; //true 打开充值页面 false 关闭充值页面
+}
+
+//充值通知，有玩家正在充值，用于效果显示
+message RechargeNotify {
+    required int32 playerid = 1;
+    required bool open = 2;
+    optional int32 time = 3; //只有自己充值并且有值时不为0时才生效
+}
+
+//操作回复
+message OperationRet {
+    optional bool is_ok = 1;
+    optional string desc = 2;
+    repeated int32 cards = 3; //玩家手牌，只有操作为看牌的时候才有
+    optional int32 op = 4; //操作 1，看牌 2 下注 3 跟注 4 加注 5 比牌 6弃牌 7 亮牌8血拼
+}
+//操作通知
+message OperationNotify {
+    message CompareInfo {
+        optional int32 sponsorid = 1; //发起者id
+        optional int32 compareid = 2; //比牌对象id
+        optional int32 winner = 3; //比赢id
+        repeated int32 cards = 4; //只有输家才有自己的牌
+    }
+    optional int32 playerid = 1; //操作玩家id
+    optional int32 op = 2; //操作 1，看牌 2 下注 3 跟注 4 加注 5 比牌 6弃牌  7 亮牌 8血拼
+    optional int32 op_score = 3; //操作分数（跟注，加注）
+    optional int32 pool_score = 4; //奖池分数
+    optional int32 sur_score = 5; //下注后的分数
+    optional CompareInfo compare_info = 6; //比牌数据
+    repeated int32 cards = 7; //亮牌玩家的牌，只有操作为亮牌时才有
+    optional int32 in_score = 8; //操作玩家在奖池中的分数
+    optional int32 in_gold = 9; //操作玩家在奖池中的金币
+    optional int32 pool_gold = 10; //奖池金币
+    optional int32 op_gold = 11; //操作金币
+    optional int32 coinBalance = 12; //下注后的金币余额
+	optional int32 cur_follow_score = 13; //当前实际跟注分数
+}
+//比牌玩家列表请求
+message CompareListReq {
+
+}
+//比牌玩家列表返回
+message CompareListRet {
+    repeated int32 players = 1;
+}
+
+//封顶轮数比牌通知
+message MaxCircleNotify {
+    repeated int32 compareids = 1; //所有参与比牌的玩家
+    optional int32 winner = 2; //赢家id
+}
+
+//血拼比牌通知
+message AllInCompareNotify {
+    repeated int32 compareids = 1; //所有参与比牌的玩家
+    optional int32 winner = 2; //赢家id
+}
+
+//及时结算通知
+message OneShotSettleNotify {
+    message Player {
+        optional int32 player_id = 1;
+        optional int32 coin = 2;
+        optional int32 coinBalance = 3;
+    }
+    repeated Player players = 1;
+	optional bool refreshView = 2;//是否刷新显示
+}
+
+//开始游戏请求
+message StartGameRet {
+
+}
+//开始游戏回复
+message StartGameReq {
+    optional bool is_ok = 1;
+    optional string desc = 2;
+}
+//取消准备通知
+message CancelReadyNotify {
+    optional int32 playerid = 1;
+}
+//房主改变通知
+message OwnerChangeNotify {
+    optional int32 old_ownerid = 1;
+    optional int32 new_ownerid = 2;
+}

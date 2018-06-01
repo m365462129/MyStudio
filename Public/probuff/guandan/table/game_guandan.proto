@@ -1,0 +1,142 @@
+syntax = "proto2";
+package Game;
+
+message BondCard{
+	optional int32 type = 1;//1 四王  2、同花顺 3、六炸 4、七炸 5、八炸 
+	repeated int32 cards = 2;
+}
+
+message TributeInfo{
+	optional int32 player_id=1;//玩家的ID
+	optional int32 recv_card=2;//
+	optional int32 send_card=3;//
+	optional int32 type=4;//1表示玩家为主动上贡方 -1表示玩家为被动返贡方 0 不需要参与上贡
+}
+//单播 上贡信息 上行消息
+message TributeReq{
+	optional int32 player_id=1;//贡牌玩家的ID
+	optional int32 card=2;//牌 0表示抗贡了
+}
+
+//单播 下行消息 is_ok为真时分别发送给贡方和受方 为假时只发送给动作发出者（上贡时是贡方，返贡时时返贡方）
+message TributeReply{
+	optional bool   is_ok=1;//是否上贡成功 
+	optional string desc=2;//错误描述信息 牌型错误、未轮到玩家出牌、不能过牌
+	repeated int32  cards=3;//当前手牌
+}
+
+message TributeState{
+	optional int32 	player_id=1;//玩家ID
+	optional int32  tribute_state=2;//上贡状态 0表示已经完成上贡动作 1表示需要上贡 -1表示等待上贡 2表示需要返贡 -2表示等待返贡
+	
+}
+
+message TributeNotify{
+	optional int32 player_id=1;//上或者还贡玩家的ID
+	optional int32 card=2;//牌 0表示抗贡了 -1表示
+	optional int32 oppsite_player_id=3; //被抗贡的玩家ID
+	repeated TributeState tribute_states=4;//所有玩家的上贡状态
+	
+	
+} 
+
+message TributeSummary{
+	repeated TributeInfo tribute_infos = 1;
+	optional int32 next_player_id=2;//下一个需要出牌的玩家 为0时表示没人需要出牌
+}
+
+message Player{
+	optional int32 	player_id=1;//玩家ID
+	optional int32  player_pos=2;//玩家位置 1\3为对家  2\4为对家
+	optional bool 	warning_flag=3;//是否报警 手牌<= 7张时报警
+	optional bool  	is_offline=4;      //是否掉线
+	optional bool  	is_owner=5;//是否为房间所有者
+	optional bool  	is_ready=6;
+	optional int32  score=7;//积分
+	optional int32  win_cnt=8;         //胜利次数
+	optional int32  lost_cnt=9;      //胜利次数
+	optional int32  rest_card_cnt=11;	//剩余牌数量 报警前只有友方可以看到 报警后全部可以看到
+	repeated BondCard bond_cards=12;//喜牌
+	optional int32  rank=13;//名次 从1至4分别为头游、二游、三游、末游
+	optional int32	round_discard_cnt=14;//本轮出牌情况 -1 还未轮到 0 已过牌 其他表示出牌数量
+	repeated int32  round_discard_info=15;//当前出牌
+	repeated int32  round_discard_logic_info=18;//当前出牌
+	optional int32  tribute_state=16;//上贡状态 0表示已经完成上贡动作 1表示需要上贡 -1表示等待上贡 2表示需要返贡 -2表示等待返贡
+	optional bool   can_deny_tribute=17;//是否可抗贡
+}
+
+//单播 游戏信息 登录或者断线重连时发送
+message GameInfo{
+	optional int32 room_id=1;//房间号
+	repeated Player players=2; 
+	optional int32 game_loop_cnt=3;//当前游戏局数
+	optional int32 game_total_cnt=4;//游戏总局数
+	optional int32 desk_player_id=5;//上一个已经出牌的玩家
+	repeated int32 desk_cards=6;//上一个已经出牌的玩家所出的牌
+	repeated int32 desk_logic_cards=12;//上一个已经出牌的玩家所出的牌(宝牌替换结果)
+	optional int32 next_player_id=7;//下一个需要出牌的玩家 为0时表示没人需要出牌
+	optional int32 time=8;//服务器时间cuo
+	repeated int32 cards=9;//手牌
+	repeated int32 major_card=10;//major_card[1] major_card[2] 分别为双方主牌
+	optional int32 major_turn=11;//1代表pos［1\3］为当前主牌方 2代表2\4为当前主牌方
+	repeated TributeInfo tribute_infos=14;//进贡情况
+	optional int32  multiple=15;//倍数 此处是处理后的结果，与出牌方无关
+	optional int32 state=16;// 0 表示牌局未开始，其他表示牌局已经开始
+	optional int32 pos_card=17;// 0表示未翻牌，第一局不翻。其他表示翻出的牌，收到两样牌的人成为对家
+	repeated int32 pos_card_player=18;//收到翻牌的玩家清单，元素个数1~2
+}
+
+//广播 结算信息 一把打玩发送
+message CurrentGameAccount
+{
+  message Player{
+    optional int32   player_id=2;//玩家ID
+    optional int32   remain_card_cnt=3;//剩余牌数
+    optional int32   score=5;//总积分
+    optional int32	 win_cnt=6;         //胜利次数
+    optional int32   lost_cnt=7;      //胜利次数
+    optional int32   current_score=8;//本局积分
+    repeated BondCard bond_cards=10;//本局所出喜牌
+    optional int32   rank=11;//名次
+    optional int32   multiple = 12;//倍数
+    optional int32   uplevel = 13;  //升级数
+	optional string played_cards = 20;
+	optional string cards = 21;
+  }
+  repeated Player players = 1;
+  optional int32  game_count=13;//总游戏局数
+  optional bool   is_summary_account=14;//是否大结 最后一局结束时该标志为true
+  optional int32 free_sponsor=20;//解散房间发起者（正常结束为空）
+  optional string	endTime = 22; //牌局结束时间(秒)
+  optional int32 first_player_id=23;//先手的玩家ID
+  optional bool isPrevSettle = 24; //是否为上一轮的结算，在断线重连时发送时用于区分
+}
+
+//广播 下行的出牌通知,收到玩家出牌信息后，如果出牌合法，则广播该通知
+message DiscardNotify
+{
+	optional int32  player_id=1;//出牌的玩家ID
+	optional bool   is_passed=2;//是否过牌
+	repeated int32  cards=3;//当前出牌情况
+	repeated int32  logic_cards=10;//宝牌变换后的结果，非宝牌位置为0，与cards位置一一对应 
+	optional bool   warning_flag=4;//警告标志 表示该玩家的手牌已经<=7张
+	optional int32  next_player_id=5;//下一个需要出牌的玩家
+	optional int32  rest_card_cnt=6;//当前玩家剩余牌数，为-1时表示保密，报警后不能为-1，其他时候只有发给对家时不为-1
+	optional bool   is_first_pattern=7;//下一个玩家是否首发
+	repeated int32  hand_cards=8;//自己出完后才可收到友方的手牌，其他情况下该字段为空
+	optional int32  multiple=9;//倍数 此处是处理后的结果，与出牌方与关
+}
+
+//单播 收到玩家出牌信息后，下行的出牌回复 
+message DiscardReply{
+	optional bool   is_ok=1;//是否出牌成功 
+	optional string desc=2;//错误描述信息 牌型错误、未轮到玩家出牌、不能过牌
+	repeated int32  cards=3;//当前手牌
+}
+
+//玩家上行的出牌信息
+message DiscardInfo{
+	optional bool   is_passed=1;//是否要不起，即过牌
+	repeated int32  cards=2;//当前出牌牌，如果过牌则此处为空数组
+	repeated int32  logic_cards=3;//宝牌变换后的结果，非宝牌位置为0，与cards位置一一对应 
+}

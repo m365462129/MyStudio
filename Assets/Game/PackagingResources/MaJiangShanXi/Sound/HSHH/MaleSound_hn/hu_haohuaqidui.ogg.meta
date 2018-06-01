@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: d4f742f9c4fcf56428dcbb54fe1b290b
+timeCreated: 1514947601
+licenseType: Pro
+AudioImporter:
+  externalObjects: {}
+  serializedVersion: 6
+  defaultSettings:
+    loadType: 0
+    sampleRateSetting: 0
+    sampleRateOverride: 44100
+    compressionFormat: 1
+    quality: 0.7
+    conversionMode: 0
+  platformSettingOverrides: {}
+  forceToMono: 0
+  normalize: 1
+  preloadAudioData: 1
+  loadInBackground: 0
+  ambisonic: 0
+  3D: 1
+  userData: 
+  assetBundleName: majiangshanxi/sound/hshh/malesound_hn/hu_haohuaqidui.bytes
+  assetBundleVariant: 

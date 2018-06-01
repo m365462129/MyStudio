@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 7bcf3c26a0c9f8e40a6ce77bc0979273
+timeCreated: 1496835166
+licenseType: Pro
+AudioImporter:
+  serializedVersion: 6
+  defaultSettings:
+    loadType: 0
+    sampleRateSetting: 0
+    sampleRateOverride: 44100
+    compressionFormat: 1
+    quality: 0.79999995
+    conversionMode: 0
+  platformSettingOverrides: {}
+  forceToMono: 0
+  normalize: 1
+  preloadAudioData: 1
+  loadInBackground: 0
+  ambisonic: 0
+  3D: 1
+  userData: 
+  assetBundleName: zhajinhua/sound/zhajinniu/female_drop_poker2.bytes
+  assetBundleVariant: 

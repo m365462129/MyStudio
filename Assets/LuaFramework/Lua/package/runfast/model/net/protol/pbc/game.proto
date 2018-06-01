@@ -1,0 +1,40 @@
+package Game;
+
+message Poker
+{
+    required string number = 1;
+    required string colour = 2;
+}
+
+message DealPokerRsp
+{
+	required int32 type = 1;
+	repeated Poker pokers = 2;
+}
+
+
+message ComputePokerReq
+{
+	
+}
+
+message ComputePokerRsp
+{
+	required string type = 1;
+}
+
+message SettleAccounts
+{
+	required int32 playerId = 1;
+    required int32 score = 2;
+}
+
+message SettleAccountsRsp
+{
+	repeated SettleAccounts settleAccounts = 1;
+}
+
+message SettleAccountsReq
+{
+	
+}

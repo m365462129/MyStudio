@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: 2e3b0801b8a1090479f7d759c6b5caff
+timeCreated: 1511429162
+licenseType: Pro
+AudioImporter:
+  externalObjects: {}
+  serializedVersion: 6
+  defaultSettings:
+    loadType: 0
+    sampleRateSetting: 0
+    sampleRateOverride: 44100
+    compressionFormat: 1
+    quality: 0.7
+    conversionMode: 0
+  platformSettingOverrides: {}
+  forceToMono: 0
+  normalize: 1
+  preloadAudioData: 1
+  loadInBackground: 0
+  ambisonic: 0
+  3D: 1
+  userData: 
+  assetBundleName: laoyancai/sound/pt_man/1dian.bytes
+  assetBundleVariant: 

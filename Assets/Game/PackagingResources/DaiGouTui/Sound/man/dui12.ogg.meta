@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: a9ba6627b9e885741b564c78e0b31d17
+timeCreated: 1510816218
+licenseType: Pro
+AudioImporter:
+  serializedVersion: 6
+  defaultSettings:
+    loadType: 0
+    sampleRateSetting: 0
+    sampleRateOverride: 44100
+    compressionFormat: 1
+    quality: 1
+    conversionMode: 0
+  platformSettingOverrides: {}
+  forceToMono: 0
+  normalize: 1
+  preloadAudioData: 1
+  loadInBackground: 0
+  ambisonic: 0
+  3D: 1
+  userData: 
+  assetBundleName: daigoutui/sound/man/dui12.bytes
+  assetBundleVariant: 

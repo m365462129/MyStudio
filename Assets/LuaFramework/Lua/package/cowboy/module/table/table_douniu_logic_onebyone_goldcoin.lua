@@ -1,0 +1,62 @@
+
+local class = require("lib.middleclass")
+local TableDouNiuLogic = require("package/cowboy/module/table/table_douniu_logic_onebyone")
+--- @class TableDouNiuLogic_OneByOne_GoldCoin:TableDouNiuLogic_OneByOne
+---@field tableModule CowBoy_TableModule
+---@field tableModel CowBoy_TableModel
+---@field tableHelper CowBoy_TableHelper
+---@field tableView CowBoy_TableView
+local TableDouNiuLogic_OneByOne_GoldCoin = class('TableDouNiuLogic_OneByOne_GoldCoin', TableDouNiuLogic)
+local TableDouNiuLogic_GoldCoin = require("package/cowboy/module/table/table_douniu_logic_goldcoin")
+
+function TableDouNiuLogic_OneByOne_GoldCoin :initialize(...)
+    self.parentClass = TableDouNiuLogic
+    TableDouNiuLogic_GoldCoin.initialize(self, ...)
+end
+
+TableDouNiuLogic_OneByOne_GoldCoin.initTableSeatData = TableDouNiuLogic_GoldCoin.initTableSeatData
+
+--同步消息
+TableDouNiuLogic_OneByOne_GoldCoin.on_table_synchronize_notify = TableDouNiuLogic_GoldCoin.on_table_synchronize_notify
+
+TableDouNiuLogic_OneByOne_GoldCoin.on_table_start_notify = TableDouNiuLogic_GoldCoin.on_table_start_notify
+
+TableDouNiuLogic_OneByOne_GoldCoin.on_table_ago_settle_accounts_notify = TableDouNiuLogic_GoldCoin.on_table_ago_settle_accounts_notify
+
+TableDouNiuLogic_OneByOne_GoldCoin.on_table_settleAccounts_Notify = TableDouNiuLogic_GoldCoin.on_table_settleAccounts_Notify
+
+TableDouNiuLogic_OneByOne_GoldCoin.table_settle_effect = TableDouNiuLogic_GoldCoin.table_settle_effect
+
+TableDouNiuLogic_OneByOne_GoldCoin.check_need_ready_fun = TableDouNiuLogic_GoldCoin.check_need_ready_fun
+
+TableDouNiuLogic_OneByOne_GoldCoin.on_click_goldcoin_bet_btn = TableDouNiuLogic_GoldCoin.on_click_goldcoin_bet_btn
+
+TableDouNiuLogic_OneByOne_GoldCoin.on_click_setting_btn = TableDouNiuLogic_GoldCoin.on_click_setting_btn
+
+TableDouNiuLogic_OneByOne_GoldCoin.getDefaultBetScore = TableDouNiuLogic_GoldCoin.getDefaultBetScore
+
+TableDouNiuLogic_OneByOne_GoldCoin.on_table_ready_rsp = TableDouNiuLogic_GoldCoin.on_table_ready_rsp
+
+TableDouNiuLogic_OneByOne_GoldCoin.startContinueBtn = TableDouNiuLogic_GoldCoin.startContinueBtn
+
+TableDouNiuLogic_OneByOne_GoldCoin.startWaitContinue = TableDouNiuLogic_GoldCoin.startWaitContinue
+
+TableDouNiuLogic_OneByOne_GoldCoin.getCanQiangZhuangScoreList = TableDouNiuLogic_GoldCoin.getCanQiangZhuangScoreList
+
+TableDouNiuLogic_OneByOne_GoldCoin.getCanXiaZhuScoreList = TableDouNiuLogic_GoldCoin.getCanXiaZhuScoreList
+
+TableDouNiuLogic_OneByOne_GoldCoin.on_reset_notify = TableDouNiuLogic_GoldCoin.on_reset_notify
+
+TableDouNiuLogic_OneByOne_GoldCoin.getMaxQiangZhuangBeiShu = TableDouNiuLogic_GoldCoin.getMaxQiangZhuangBeiShu
+
+TableDouNiuLogic_OneByOne_GoldCoin.on_click_goldcoin_exit_btn = TableDouNiuLogic_GoldCoin.on_click_goldcoin_exit_btn
+
+TableDouNiuLogic_OneByOne_GoldCoin.on_click_wanfashuoming_btn = TableDouNiuLogic_GoldCoin.on_click_wanfashuoming_btn
+
+TableDouNiuLogic_OneByOne_GoldCoin.can_invite_wechat_friend = TableDouNiuLogic_GoldCoin.can_invite_wechat_friend
+
+TableDouNiuLogic_OneByOne_GoldCoin.get_max_paixing_beishu = TableDouNiuLogic_GoldCoin.get_max_paixing_beishu
+
+TableDouNiuLogic_OneByOne_GoldCoin.playCoinFlySound = TableDouNiuLogic_GoldCoin.playCoinFlySound
+
+return TableDouNiuLogic_OneByOne_GoldCoin

@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: edf15b35af528114a91fade46dc07d1b
+timeCreated: 1510820308
+licenseType: Pro
+AudioImporter:
+  serializedVersion: 6
+  defaultSettings:
+    loadType: 0
+    sampleRateSetting: 0
+    sampleRateOverride: 44100
+    compressionFormat: 1
+    quality: 1
+    conversionMode: 0
+  platformSettingOverrides: {}
+  forceToMono: 0
+  normalize: 1
+  preloadAudioData: 1
+  loadInBackground: 0
+  ambisonic: 0
+  3D: 1
+  userData: 
+  assetBundleName: sangong/sound/man/man_3.bytes
+  assetBundleVariant: 

@@ -1,0 +1,20 @@
+--local protobuf = require "protobuf.protobuf"
+--local Parser = require "lib.protobuf_parser"
+--
+--local dir_path = UnityEngine.Application.dataPath .. "/LuaFramework/PbcMessage"
+--
+--local M = {}
+--
+----编码   只用于编辑器
+--function M.encode(protoFileName, messageName, tableData)
+--    Parser.register(protoFileName, dir_path .. "/")
+--    return protobuf.encode(messageName, tableData)
+--end
+--
+----解码  只用于编辑器
+--function M.decode(protoFileName, messageName, data)
+--    Parser.register(protoFileName, dir_path .. "/")
+--    return protobuf.decode(messageName, data)
+--end
+--
+--return M

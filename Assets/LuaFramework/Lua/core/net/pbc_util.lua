@@ -1,0 +1,15 @@
+--require "lib.protobuf"
+--local parser = require "lib.protobuf_parser"
+--
+--local dir_path = UnityEngine.Application.dataPath .. "/LuaFramework/PbcMessage"
+--local bf_path = dir_path .. "/biji/"
+--
+--function encode(protoFileName, messageName, data)
+--    parser.register(protoFileName, dir_path .. "/")
+--    return protobuf.encode(messageName, data)
+--end
+--
+--function bf_encode(protoFileName, messageName, data)
+--    parser.register(protoFileName, bf_path)
+--    return protobuf.encode(messageName, data)
+--end

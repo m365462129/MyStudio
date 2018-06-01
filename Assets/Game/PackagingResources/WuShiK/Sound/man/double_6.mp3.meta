@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: e26a049606bcfc147b2d3712b88efd6e
+timeCreated: 1524466464
+licenseType: Pro
+AudioImporter:
+  externalObjects: {}
+  serializedVersion: 6
+  defaultSettings:
+    loadType: 0
+    sampleRateSetting: 0
+    sampleRateOverride: 44100
+    compressionFormat: 1
+    quality: 1
+    conversionMode: 0
+  platformSettingOverrides: {}
+  forceToMono: 0
+  normalize: 1
+  preloadAudioData: 1
+  loadInBackground: 0
+  ambisonic: 0
+  3D: 1
+  userData: 
+  assetBundleName: wushik/sound/man/double_6.bytes
+  assetBundleVariant: 

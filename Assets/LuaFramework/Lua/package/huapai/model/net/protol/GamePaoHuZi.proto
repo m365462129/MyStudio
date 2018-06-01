@@ -1,0 +1,163 @@
+
+syntax = "proto2";
+
+//命令ID: 1001，出牌  ACTION_CHUPAI
+message ACTION_CHUPAI
+{
+	optional int32 pai=1;
+}
+
+
+//命令ID: 1002，吃  ACTION_CHI
+message ACTION_CHI
+{
+	optional uint32 SeqNo=1;
+}
+
+//命令ID: 1003，碰  ACTION_PENG
+message ACTION_PENG
+{
+}
+
+
+//命令ID: 1004，跑  ACTION_PAO
+message ACTION_PAO
+{
+}
+
+
+//命令ID: 1005，胡  ACTION_HU
+message ACTION_HU
+{
+}
+
+
+//命令ID: 1006，过  ACTION_GUO
+message ACTION_GUO
+{
+}
+
+
+//命令ID: 1008 , 排列手牌  PHZ_SORT
+message PHZ_SORT
+{
+	optional uint32 horizontal_id_old=1;
+	optional uint32 vertical_id_old=2;
+	optional uint32 horizontal_id_new=3;
+	optional uint32 vertical_id_new=4;
+}
+
+//牌  PHZ_PAI
+message PHZ_PAI
+{
+	optional int32 pai=1;
+	optional bool is_gray=2;
+}
+
+
+//牌墩  PHZ_PAI_DUN
+message PHZ_PAI_DUN
+{
+	repeated PHZ_PAI pai=1;
+}
+
+
+//坎  PHZ_KAN
+message PHZ_KAN
+{
+	repeated int32 pai=1;
+	optional int32 hu_xi=2;
+	optional string des=3;
+}
+
+
+//胡法  PHZ_HU_FA
+message PHZ_HU_FA
+{
+	optional string name=1;
+	optional double fen=2;
+	optional bool is_addition=3;
+}
+
+
+//玩家状态 PLAYER_STATE
+message PLAYER_STATE
+{
+	repeated PHZ_PAI_DUN fixed_pai=1;
+	repeated PHZ_PAI_DUN shou_zhang=2;
+	repeated PHZ_KAN xia_zhang=3;
+	repeated int32 qi_zhang=4;
+	repeated PHZ_HU_FA HuFa=5;
+	optional bool chu_pai=6;
+	optional int32 hu_pai=7;
+	optional int32 round_hu_xi=8;
+	optional int32 round_score=9;
+	optional int32 total_score=10;
+}
+
+
+//动作 PHZ_ACTION
+message PHZ_ACTION
+{
+	optional uint32 zuolihao=1;
+	optional int32 action=2;
+}
+
+//可吃牌 PHZ_KE_CHI
+message PHZ_KE_CHI
+{
+	repeated int32 type=1;
+}
+
+
+//听牌 PHZ_TING
+message PHZ_TING
+{
+	optional int32 chu_pai=1;
+	repeated int32 tingpai=2;
+}
+
+
+// PHZ_ROUND_HISTORY
+message PHZ_ROUND_HISTORY
+{
+	optional int64 shijian=1;
+	repeated int32 score=2;
+}
+
+//命令ID: 1001   GAME_STATE
+message GAME_STATE
+{
+	repeated PLAYER_STATE player=1;//用户对象
+	repeated int32 dun=2;
+	optional uint32 zhuang=3;
+	optional uint32 cur_player=4;
+	repeated PHZ_KE_CHI ke_chi=5;
+	optional bool ke_peng=6;
+	optional bool ke_pao=7;
+	optional bool ke_hu=8;
+	repeated PHZ_TING ke_ting=9;
+	optional int32 ke_chu=10;
+	repeated PHZ_ACTION action=11;
+	repeated int32 yi_ting=12;
+	optional uint32 CurRound=13;
+	optional uint32 loser=14;
+	optional int32 result=15;
+	optional uint32 SeqNo=16;
+	repeated PHZ_ROUND_HISTORY history=17;
+	optional int64 starttime=18;
+	optional int64 endtime=19;
+	optional int32 jiang_pai=20;
+}
+
+//命令ID: 1002
+message BOHUZI_YONGHUZHUNBEIZHUANGTAI
+{
+	repeated int32 zhuangtai=1;
+}
+
+message FANGBAOFALIUHUGUIZEMAOSHUJIGOU
+{
+}
+
+

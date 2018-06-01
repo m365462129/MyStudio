@@ -1,0 +1,102 @@
+syntax = "proto2";
+package Controller;
+
+
+//开始游戏 副作用 直接停止当前牌局。
+message StartReq
+{
+	message Player{
+		required int32 	player_id=1;//玩家ID
+		required int32 	player_pos=2;//玩家ID
+		repeated int32  cards=3;//当前手牌
+	}
+	required string stage_desc=1;//"上半场"、"下半场"
+	required int32  first_hand_player=2;//"先手玩家"
+	repeated int32  observers=3;//观察者清单
+	repeated Player players=4;//玩家座位
+	required int32  rate=5;//底分 即倍率
+	optional bool   specify_card=6;//配牌
+	optional bool   specify_pos=7;//换座
+	
+}
+
+message ObserverReq{
+	repeated int32 insert_observers=1;
+	repeated int32 remove_observers=2;
+}
+message ObserverAck{
+	required string err_no=1;
+}
+//拉总积分榜 副作用 直接停止当前牌局
+message TotalGameAccountReq
+{
+	required string stage_desc=1;//"上半场"、"下半场"
+}
+
+message TotalGameAccountAck
+{
+	required string err_no = 1;
+}
+//生成玩家账号
+message GeneratePlayersReq
+{
+	required int32 count=1;//数量 
+}
+
+message GeneratePlayersAck
+{
+	message Player {
+		required int32 	player_id=2;//玩家ID
+		required string passwd=3;//登录密码
+	}
+	repeated Player players=1;
+}
+//玩家信息，与GameInfo存在冗余
+message PlayerInfo {
+	required int32 	player_id=2;//玩家ID
+	required int32  player_pos=3;//玩家位置
+	required int32	bomb_cnt=4;//需要与前端对齐：总炸弹数
+	required int32 	score=5;//需要与前端对齐：总积分
+	required int32  win_cnt=6;         //胜利次数
+	required int32  lost_cnt=7;      //胜利次数
+	optional string name=8;//玩家姓名
+	optional bytes  image=9;//玩家头像
+	optional string sex=10;//玩家性别 
+	optional string addr=11;//玩家地址
+	optional bool   is_challenger=12;//是否擂主
+	optional int32  days_of_challenger=13;//守擂天数
+}
+
+message PlayerCards{
+	required int32 	player_id=2;//玩家ID
+	repeated int32  cards=3;//当前手牌
+}	
+
+//玩家手牌报告，仅上报给房主
+message PlayerCardReport{
+	repeated PlayerCards players=1;
+}
+
+//配置玩家信息 副作用 播发PlayerInfoNotify
+message ConfigPlayerReq
+{
+	
+	repeated PlayerInfo players=1;
+	
+}
+
+message PlayerInfoNotify
+{
+	repeated PlayerInfo players=1;
+}
+
+message ConfigPlayerAck
+{
+	message Player {
+		required int32 	player_id=2;//玩家ID
+		optional string desc=4;//描述信息
+	}
+	repeated Player players=1;
+	required bool result=3;
+}
+
