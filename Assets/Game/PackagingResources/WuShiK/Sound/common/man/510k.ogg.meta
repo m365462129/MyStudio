@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: bc0ce0a58daef0140b8accb2ed5765d7
+timeCreated: 1508314966
+licenseType: Pro
+AudioImporter:
+  externalObjects: {}
+  serializedVersion: 6
+  defaultSettings:
+    loadType: 0
+    sampleRateSetting: 0
+    sampleRateOverride: 44100
+    compressionFormat: 1
+    quality: 0.7
+    conversionMode: 0
+  platformSettingOverrides: {}
+  forceToMono: 0
+  normalize: 1
+  preloadAudioData: 1
+  loadInBackground: 0
+  ambisonic: 0
+  3D: 1
+  userData: 
+  assetBundleName: wushik/sound/common/man/510k.bytes
+  assetBundleVariant: 

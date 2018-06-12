@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 0ab2a7248113e1c4d915cb8610d8b310
+timeCreated: 1508314935
+licenseType: Pro
+AudioImporter:
+  serializedVersion: 6
+  defaultSettings:
+    loadType: 0
+    sampleRateSetting: 0
+    sampleRateOverride: 44100
+    compressionFormat: 1
+    quality: 0.7
+    conversionMode: 0
+  platformSettingOverrides: {}
+  forceToMono: 0
+  normalize: 1
+  preloadAudioData: 1
+  loadInBackground: 0
+  ambisonic: 0
+  3D: 1
+  userData: 
+  assetBundleName: doudizhu/sound/man/tuple11.bytes
+  assetBundleVariant: 

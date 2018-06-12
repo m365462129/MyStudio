@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: b26b45f5dab1b3d47bb02e03014113b8
+timeCreated: 1524466463
+licenseType: Pro
+AudioImporter:
+  externalObjects: {}
+  serializedVersion: 6
+  defaultSettings:
+    loadType: 1
+    sampleRateSetting: 0
+    sampleRateOverride: 44100
+    compressionFormat: 1
+    quality: 1
+    conversionMode: 0
+  platformSettingOverrides: {}
+  forceToMono: 0
+  normalize: 1
+  preloadAudioData: 1
+  loadInBackground: 0
+  ambisonic: 0
+  3D: 1
+  userData: 
+  assetBundleName: wushik/sound/man/bomb_4.bytes
+  assetBundleVariant: 

@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 2712a87b2ac4e35479e9c85a06ccd197
+timeCreated: 1509070942
+licenseType: Pro
+AudioImporter:
+  serializedVersion: 6
+  defaultSettings:
+    loadType: 0
+    sampleRateSetting: 0
+    sampleRateOverride: 44100
+    compressionFormat: 1
+    quality: 0.7
+    conversionMode: 0
+  platformSettingOverrides: {}
+  forceToMono: 0
+  normalize: 1
+  preloadAudioData: 1
+  loadInBackground: 0
+  ambisonic: 0
+  3D: 1
+  userData: 
+  assetBundleName: changpai/sound/malesound_ntcp/manxi.bytes
+  assetBundleVariant: 

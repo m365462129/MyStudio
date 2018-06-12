@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: 1a35216c3e440c843a1f6dd2a97857ef
+timeCreated: 1527735426
+licenseType: Free
+AudioImporter:
+  externalObjects: {}
+  serializedVersion: 6
+  defaultSettings:
+    loadType: 0
+    sampleRateSetting: 0
+    sampleRateOverride: 44100
+    compressionFormat: 1
+    quality: 1
+    conversionMode: 0
+  platformSettingOverrides: {}
+  forceToMono: 0
+  normalize: 1
+  preloadAudioData: 1
+  loadInBackground: 0
+  ambisonic: 0
+  3D: 1
+  userData: 
+  assetBundleName: huapai/sound/essh/man/pai_21.bytes
+  assetBundleVariant: 

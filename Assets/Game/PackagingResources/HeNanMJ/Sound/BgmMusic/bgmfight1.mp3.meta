@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 4129d896fc2a35a4c8634e75a898acb3
+timeCreated: 1492159283
+licenseType: Pro
+AudioImporter:
+  serializedVersion: 6
+  defaultSettings:
+    loadType: 1
+    sampleRateSetting: 0
+    sampleRateOverride: 44100
+    compressionFormat: 1
+    quality: 0.5
+    conversionMode: 0
+  platformSettingOverrides: {}
+  forceToMono: 0
+  normalize: 1
+  preloadAudioData: 1
+  loadInBackground: 0
+  3D: 1
+  userData: 
+  assetBundleName: henanmj/sound/bgmmusic/bgmfight1.bytes
+  assetBundleVariant: 

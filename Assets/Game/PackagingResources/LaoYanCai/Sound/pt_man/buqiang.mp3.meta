@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: 4bcc6e686e4d43d4aace8195846e83fd
+timeCreated: 1511429165
+licenseType: Pro
+AudioImporter:
+  externalObjects: {}
+  serializedVersion: 6
+  defaultSettings:
+    loadType: 0
+    sampleRateSetting: 0
+    sampleRateOverride: 44100
+    compressionFormat: 1
+    quality: 0.7
+    conversionMode: 0
+  platformSettingOverrides: {}
+  forceToMono: 0
+  normalize: 1
+  preloadAudioData: 1
+  loadInBackground: 0
+  ambisonic: 0
+  3D: 1
+  userData: 
+  assetBundleName: laoyancai/sound/pt_man/buqiang.bytes
+  assetBundleVariant: 

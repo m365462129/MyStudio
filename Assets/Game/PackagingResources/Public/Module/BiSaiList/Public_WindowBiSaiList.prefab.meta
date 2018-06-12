@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+guid: 38f9121d22fd1f64ca6426e3d71cc9d8
+labels:
+- TextureImporterFormat_PVRTC_RGBA4
+timeCreated: 1520421293
+licenseType: Pro
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: public/module/bisailist/public_windowbisailist.prefab
+  assetBundleVariant: 

@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 1101fec2972fc9f48908b7c4fe8575e2
+timeCreated: 1503309812
+licenseType: Pro
+AudioImporter:
+  serializedVersion: 6
+  defaultSettings:
+    loadType: 0
+    sampleRateSetting: 0
+    sampleRateOverride: 44100
+    compressionFormat: 1
+    quality: 0.79999995
+    conversionMode: 0
+  platformSettingOverrides: {}
+  forceToMono: 0
+  normalize: 1
+  preloadAudioData: 1
+  loadInBackground: 0
+  3D: 1
+  userData: 
+  assetBundleName: guandan/sound/man/m_1z12.bytes
+  assetBundleVariant: 

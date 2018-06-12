@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: 114b8ad3f1e679b4f93cb3938be27432
+timeCreated: 1497585303
+licenseType: Pro
+AudioImporter:
+  externalObjects: {}
+  serializedVersion: 6
+  defaultSettings:
+    loadType: 1
+    sampleRateSetting: 0
+    sampleRateOverride: 44100
+    compressionFormat: 1
+    quality: 0.7
+    conversionMode: 0
+  platformSettingOverrides: {}
+  forceToMono: 0
+  normalize: 1
+  preloadAudioData: 1
+  loadInBackground: 0
+  ambisonic: 0
+  3D: 1
+  userData: 
+  assetBundleName: paohuzi/sound/sound/femalesound_hn/buhua.bytes
+  assetBundleVariant: 

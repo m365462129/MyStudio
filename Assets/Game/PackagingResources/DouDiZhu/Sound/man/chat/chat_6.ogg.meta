@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: c9afdfd3d93854e4aac64031fb9d3f92
+timeCreated: 1508314967
+licenseType: Pro
+AudioImporter:
+  externalObjects: {}
+  serializedVersion: 6
+  defaultSettings:
+    loadType: 1
+    sampleRateSetting: 0
+    sampleRateOverride: 44100
+    compressionFormat: 1
+    quality: 0.7
+    conversionMode: 0
+  platformSettingOverrides: {}
+  forceToMono: 0
+  normalize: 1
+  preloadAudioData: 1
+  loadInBackground: 0
+  ambisonic: 0
+  3D: 1
+  userData: 
+  assetBundleName: doudizhu/sound/man/chat/chat_6.bytes
+  assetBundleVariant: 

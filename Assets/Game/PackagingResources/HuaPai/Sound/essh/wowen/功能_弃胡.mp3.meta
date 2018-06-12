@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: aa24c07a21b9c7a44aea610790ed3ffe
+timeCreated: 1527735440
+licenseType: Free
+AudioImporter:
+  externalObjects: {}
+  serializedVersion: 6
+  defaultSettings:
+    loadType: 0
+    sampleRateSetting: 0
+    sampleRateOverride: 44100
+    compressionFormat: 1
+    quality: 1
+    conversionMode: 0
+  platformSettingOverrides: {}
+  forceToMono: 0
+  normalize: 1
+  preloadAudioData: 1
+  loadInBackground: 0
+  ambisonic: 0
+  3D: 1
+  userData: 
+  assetBundleName: "huapai/sound/essh/wowen/\u529F\u80FD_\u5F03\u80E1.bytes"
+  assetBundleVariant: 

@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: 11a57e5421775d24c8a305f4d1a5b9da
+timeCreated: 1501125709
+licenseType: Pro
+AudioImporter:
+  externalObjects: {}
+  serializedVersion: 6
+  defaultSettings:
+    loadType: 0
+    sampleRateSetting: 0
+    sampleRateOverride: 44100
+    compressionFormat: 1
+    quality: 0.7
+    conversionMode: 0
+  platformSettingOverrides: {}
+  forceToMono: 0
+  normalize: 1
+  preloadAudioData: 1
+  loadInBackground: 0
+  ambisonic: 0
+  3D: 1
+  userData: 
+  assetBundleName: biji/sound/bijisound/man/tonghua.bytes
+  assetBundleVariant: 

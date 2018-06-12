@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: c1b0a79fbbf95a045a331aa0d501d849
+timeCreated: 1508314966
+licenseType: Pro
+AudioImporter:
+  serializedVersion: 6
+  defaultSettings:
+    loadType: 0
+    sampleRateSetting: 0
+    sampleRateOverride: 44100
+    compressionFormat: 1
+    quality: 0.7
+    conversionMode: 0
+  platformSettingOverrides: {}
+  forceToMono: 0
+  normalize: 1
+  preloadAudioData: 1
+  loadInBackground: 0
+  ambisonic: 0
+  3D: 1
+  userData: 
+  assetBundleName: doudizhu/sound/man/action/score_order_1.bytes
+  assetBundleVariant: 

@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: d64ef5b7f21017c41b8a63d3f6d76080
+timeCreated: 1484040804
+licenseType: Pro
+AudioImporter:
+  serializedVersion: 6
+  defaultSettings:
+    loadType: 1
+    sampleRateSetting: 0
+    sampleRateOverride: 44100
+    compressionFormat: 1
+    quality: 0.7
+    conversionMode: 0
+  platformSettingOverrides: {}
+  forceToMono: 0
+  normalize: 1
+  preloadAudioData: 1
+  loadInBackground: 0
+  ambisonic: 0
+  3D: 1
+  userData: 
+  assetBundleName: changpai/sound/common/penggang.bytes
+  assetBundleVariant: 
