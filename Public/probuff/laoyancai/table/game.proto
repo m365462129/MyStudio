@@ -1,0 +1,184 @@
+syntax = "proto2";
+package Game;
+
+message Player {
+    required int32 player_id = 1; //玩家ID
+    required int32 player_pos = 2; //玩家位置
+    required int32 enter_cnt = 3; //进入次数
+    required bool is_offline = 4; //是否掉线
+    required bool is_ready = 6;
+    required int32 score = 7; //积分
+    repeated int32 cards = 8; //牌 只有可以亮的牌才有
+    optional int32 point = 9; //点数 只有可以亮的牌才有
+    optional int32 type = 10; //牌型 只有可以亮的牌才有
+    optional int32 third_card = 11; //捞牌的牌（只有捞牌后才有）
+    optional int32 xiafen = 12; //下的分数
+    optional bool inplay = 13; //是否参与牌局，中途加入的不能发牌
+    optional int32 win_score = 14; // 输赢分数 ，state=4 才有
+}
+//单播 游戏信息 登录或者断线重连时发送
+message GameInfo {
+    optional int32 room_id = 1; //房间号
+    repeated Player players = 2;
+    optional int32 game_loop_cnt = 3; //当前游戏局数
+    optional int32 game_total_cnt = 4; //游戏总局数
+    optional int32 ownerid = 5; //房主
+    optional int32 time = 7; //服务器时间cuo
+    optional int32 rate = 8; //底分
+    optional bool is_deal = 9; //是否已经发牌
+    optional int32 brankerid = 11; //庄家id（只有有庄家才有）
+    optional int32 room_state = 13; //房间状态 0 未开始 1 抢庄状态(会发开始抢庄通知包) 2 下分状态（会发定庄发牌通知包） 3操作状态（操作状态会发开始操作通知包）4
+    repeated int32 queue_list = 10; //排队上庄列表
+
+}
+
+//广播 结算信息 一把打玩发送
+message CurrentGameAccount {
+    message Player {
+        optional int32 player_id = 1; //玩家ID
+        optional int32 score = 2; //总积分
+        optional int32 win_cnt = 3; //胜利次数
+        optional int32 lost_cnt = 4; //失败次数
+        optional int32 sanpi_times = 5; //三批次数
+        optional int32 sanyan_times = 6; //三腌次数
+        optional int32 shuangyan_times = 7; //双腌次数
+        optional int32 zhakai_times = 8; //炸开次数
+    }
+    repeated Player players = 1;
+    optional string endTime = 2; //牌局结束时间(秒)
+    optional int32 game_count = 3; //总游戏局数
+    optional bool is_summary_account = 4; //是否大结
+    optional bool is_free_room = 5; //是否是解散房间
+    optional string startTime = 6; //牌局开始时间(秒)
+    optional int32 free_sponsor = 7; //解散者id
+}
+//开始抢庄通知
+message StartQiangZhuangNotify {
+    optional int32 time = 1; //抢庄倒计时时间，5s后自动放弃
+    optional int32 qiangzhuang_state = 2; //0  还没抢庄 1抢庄 2没抢
+}
+//抢庄请求
+message QiangZhuangReq {
+    optional bool qiang = 1; //是否抢庄
+}
+//抢庄回复
+message QiangZhuangRet {
+    optional bool is_ok = 1;
+    optional string desc = 2;
+}
+//抢庄通知
+message QiangZhuangNotify {
+    optional int32 playerid = 1; //玩家id
+    optional bool qiang = 2; //是否抢庄
+}
+//定庄发牌通知（收到通知后发两张牌并开始选择下分）
+message FaPaiNotify {
+    message Player {
+        optional int32 playerid = 1;
+        optional bool inplay = 2; //是否参与牌局，中途加入的不能发牌
+    }
+    optional int32 brankerid = 1; //庄家id
+    repeated int32 xiafen = 2; //可以下的分数  (庄家为空)
+    optional int32 baopai_fen = 3; //宝牌分数
+    optional int32 surcard_cnt = 4; //剩余牌数量
+    repeated Player players = 5;
+    optional int32 fapai_time = 6; //发牌时间
+    optional int32 xiafen_time = 7; //下分时间
+    optional int32 have_xiafen = 8; //下的分数，0 没有下分 用于断线重连
+}
+//下分请求
+message XiaFenReq {
+    optional int32 fen = 1; //分数
+}
+//下分回复
+message XiaFenRet {
+    optional bool is_ok = 1;
+    optional string desc = 2;
+}
+//下分通知
+message XiaFenNotify {
+    optional int32 playerid = 1; //玩家id
+    optional int32 fen = 2; //下的分数
+}
+
+//开始操作通知
+message StartOperationNotify {
+    message Operation {
+        optional int32 playerid = 1;
+        optional int32 op = 2; //操作状态  0 等待庄家操作 1等待闲家操作 2 炸开 3捞牌（包括捞牌和不捞）
+        optional int32 time = 3; //操作时间
+        optional int32 score = 4; //下分
+    }
+    repeated Operation op = 1; //操作
+    repeated int32 cards = 2; //自己的手牌
+    optional int32 point = 3; //点数
+    optional int32 cardtype = 4; //牌型 1，双腌 2三腌 3 三批
+}
+//操作请求
+message OperationReq {
+    optional int32 op = 1; // 2 炸开 3捞牌 4不捞
+}
+//操作回复
+message OperationRet {
+    optional bool is_ok = 1;
+    optional string desc = 2;
+    optional int32 card = 3; //捞的牌(op = 3时才有)
+    optional int32 point = 4; //点数
+    optional int32 cardtype = 5; //牌型 1，双腌 2三腌 3 三批
+}
+//操作通知
+message OperationNotify {
+    optional int32 playerid = 1; //玩家id
+    optional int32 op = 2; // 2 炸开 3捞牌 4不捞
+    optional int32 card = 3; //捞的牌(op = 3时才有)
+    repeated int32 xian_cards = 4; //闲家选择炸开后闲家的牌 op =2时才有
+    optional int32 surcard_cnt = 5; //剩余牌数量
+    optional int32 point = 6; //点数
+    optional int32 cardtype = 7; //牌型 1，双腌 2三腌 3 三批
+}
+//比牌通知
+message CompareNotify {
+    message PlayerInfo {
+        optional int32 playerid = 1; //玩家id
+        repeated int32 cards = 2; //玩家手牌
+        optional int32 win_score = 3; //输赢分数
+        optional int32 score = 4; //玩家分数
+        optional int32 point = 5; //点数
+        optional int32 cardtype = 6; //牌型 1，双腌 2三腌 3 三批
+        optional bool branker_two_compare = 7; //跟庄家两张牌比（只有闲家才有用）
+    }
+    repeated PlayerInfo player = 1;
+    optional int32 startready_time = 2; //比牌后显示准备按钮的时间 s
+    optional int32 ready_time = 3; //准备倒计时时间 s
+    optional int32 branker = 4;//庄家id
+
+}
+
+//查看其它玩家牌请求，只有轮到庄家操作时才可以看闲家的牌
+message ViewcardReq {
+    optional int32 playerid = 1; //玩家id
+}
+//查看其它玩家牌回复，没有权限时，cards为空
+message ViewcardRet {
+    repeated int32 cards = 1; //牌
+    optional int32 playerid = 2;
+    optional int32 point = 3; //玩家分数
+    optional int32 cardtype = 4; //点数
+}
+
+//请求排队上庄
+message QueueZhuangReq {
+    optional int32 join = 1; // 0 排队上庄 1取消排队
+}
+//排队上庄回复
+message QueueZhuangRet {
+    optional bool is_ok = 1;
+    optional string desc = 2;
+}
+//上庄列表改变通知
+message QueueZhuangNotify {
+    repeated int32 queue_list = 1; //排队列表
+}
+
+
+

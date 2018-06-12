@@ -1,0 +1,211 @@
+syntax = "proto2";
+package Game;
+
+message Player {
+    required int32 player_id = 1; //玩家ID
+    required int32 player_pos = 2; //玩家位置
+    required bool is_single = 3; //是否报单
+    required bool is_offline = 4; //是否掉线
+    required bool is_owner = 5; //是否为房间所有者
+    required bool is_ready = 6;
+    required int32 score = 7; //积分
+    required int32 win_cnt = 8; //胜利次数
+    required int32 lost_cnt = 9; //胜利次数
+    optional int32 bomb_cnt = 10; //炸弹数量
+    optional int32 rest_card_cnt = 11; //剩余牌数量
+    optional int32 enter_cnt = 12; //进入房间次数
+    optional bool show_cards = 13; //是否明牌
+    optional int32 grablord_score = 14; //叫地主的分
+    repeated int32 cards = 15; //手牌
+    optional int32 round_discard_cnt = 16; //本轮出牌情况 -1 还未轮到 0 已过牌 其他表示出牌数量
+    repeated int32 round_discard_info = 17; //本轮所出的牌
+    optional int32 beishu = 18; //倍数
+    optional int32 intrustState = 19; //托管状态 1 代表托管状态  0 代表取消托管状态
+    optional int32 coinBalance = 20; //金币余额
+}
+//单播 游戏信息 登录或者断线重连时发送
+message GameInfo {
+    required int32 room_id = 1; //房间号
+    repeated Player players = 2;
+    required int32 game_loop_cnt = 3; //当前游戏局数
+    required int32 game_total_cnt = 4; //游戏总局数
+    required int32 desk_player_id = 5; //上一个已经出牌的玩家
+    repeated int32 desk_cards = 6; //上一个已经出牌的玩家所出的牌
+    required int32 next_player_id = 7; //下一个需要出牌的玩家
+    required int32 time = 8; //服务器时间cuo
+    repeated int32 cards = 9; //手牌
+    required int32 max_player_cnt = 10; //两人游戏或者三人游戏
+    optional string stage_desc = 11; //房间描述信息
+    repeated int32 observers = 12; //观察者清单
+    optional int32 rate = 13; //底分
+    optional bool is_deal = 14; //是否已经发牌
+    optional int32 lordid = 15; //地主id
+    optional bool dealcard = 16; //是否是发牌
+    repeated int32 di_cards = 17; //底牌
+    optional int32 cur_grablord_id = 18; //当前抢地主的玩家
+    repeated int32 grablord_score_list = 19; //抢地主玩家，能抢的分
+    optional int32 bomb_cnt = 20; //炸弹个数
+    optional int32 feeNum = 21; //台费
+    optional int32 auto_ready_time = 22; //倒计时时间（自动准备，自动抢庄）
+    optional int32 auto_op_time = 23; //倒计时时间（自动出牌）
+    optional int32 owner = 24; //房主
+    optional int32 baseCoinScore = 25; //底分
+}
+
+//广播 结算信息 一把打玩发送
+message CurrentGameAccount {
+    message Player {
+        required int32 player_id = 2; //玩家ID
+        required int32 remain_card_cnt = 3; //剩余牌数
+        required int32 bomb_cnt = 4; //总炸弹数
+        required int32 score = 5; //总积分
+        optional int32 win_cnt = 6; //胜利次数
+        optional int32 lost_cnt = 7; //胜利次数
+        optional int32 current_score = 8; //本局积分
+        optional int32 current_bomb_cnt = 9; //本局炸弹数
+        optional string played_cards = 10; //出牌记录
+        optional string cards = 11; //手牌
+        optional int32 show_cards = 12; //明牌 0没有 1 有
+        optional int32 spring = 13; //春天 0 没有 1 有
+        optional int32 show_cards_times = 14;
+        optional int32 spring_times = 15;
+        repeated int32 sur_cards = 16; //剩余牌数
+        optional int32 beishu = 17; //倍数
+        optional int32 restCoin = 18; //金币场未结清的输赢
+        optional int32 Coin = 19; //金币场实际输赢
+        optional int32 coinBalance = 20; //金币余额
+    }
+    repeated Player players = 1;
+    optional string endTime = 12; //牌局结束时间(秒)
+    optional int32 game_count = 13; //总游戏局数
+    optional bool is_summary_account = 14; //是否大结
+    optional int32 lordid = 15; //地主id
+    optional bool is_free_room = 16; //是否是解散房间
+    optional string startTime = 17; //牌局开始时间(秒)
+    optional bool have_jiesuan = 18; //是否已显示这一次的小结算，如果显示了就不用再显示了
+    optional int32 auto_ready_time = 19; //准备时间
+    optional int32 free_sponsor = 20; //解散者id
+    optional bool IsChangeRoomWhileRestart = 21; // 点继续游戏时是否触发换桌 (金币场房间小结算时使用)
+}
+//广播 下行的出牌通知,收到玩家出牌信息后，如果出牌合法，则广播该通知
+message DiscardNotify {
+    message Player {
+        optional int32 playerid = 1;
+        optional int32 beishu = 2;
+    }
+    required int32 player_id = 1; //出牌的玩家ID
+    required bool is_passed = 2; //是否要不起，即过牌
+    repeated int32 cards = 3; //当前出牌，如过牌，则此处为空数组
+    required int32 warning_flag = 4; //警告标志
+    required int32 next_player_id = 5; //下一个需要出牌的玩家
+    required int32 rest_card_cnt = 6; //当前玩家剩余牌数，一般不会发，除非房间属性指定要发
+    required bool is_first_pattern = 7; //下一个玩家是否首发
+    optional int32 bomb_cnt = 8;
+    repeated Player players = 9;
+    optional int32 auto_op_time = 10;
+    repeated int32 out_player_cards = 11; //当前出牌玩家的手牌,其他玩家为空
+}
+
+//单播 收到玩家出牌信息后，下行的出牌回复 
+message DiscardReply {
+    required bool is_ok = 1; //是否出牌成功
+    required string desc = 2; //错误描述信息 牌型错误、未轮到玩家出牌、不能过牌
+    repeated int32 cards = 3; //当前手牌
+}
+
+//玩家上行的出牌信息
+message DiscardInfo {
+    required bool is_passed = 1; //是否要不起，即过牌
+    repeated int32 cards = 2; //当前出牌牌，如果过牌则此处为空数组
+}
+
+//以下为透传信息，服务端不关注内容直接转发给观察者。
+message UpCards {
+    required int32 player_id = 1; //玩家ID
+    required bool isUp = 2; //是否上去
+    repeated int32 cards = 3; //牌
+}
+
+//明牌请求
+message ShowCardsReq {
+    optional int32 stage = 1; //明牌阶段 1 摸牌前明牌 2叫牌明牌 3明牌
+}
+//明牌回复
+message ShowCardsRet {
+    required bool is_ok = 1; //是否明牌成功
+    optional int32 stage = 2; //明牌阶段 1 摸牌前明牌 2叫牌明牌 3明牌
+
+}
+
+//叫分请求
+message GrabLandLordReq {
+    optional int32 score = 1; //叫分 0不抢
+}
+//叫分回复
+message GrabLandLordRet {
+    required bool is_ok = 1; //是否叫分成功
+    required string desc = 2; //错误描述信息
+    optional int32 score = 3; //叫分 0不抢
+}
+
+//明牌通知
+message ShowCardsNotify {
+    optional int32 playerid = 1; //明牌位置
+    optional int32 stage = 2; //明牌阶段 1 摸牌前明牌 2叫牌明牌 3明牌
+    repeated int32 cards = 3; //牌
+}
+
+//开始抢地主通知
+message StartGrabLandNotify {
+    optional int32 playerid = 1; //第一个叫地主位置
+    repeated int32 scoreList = 2; //可以叫哪些分数
+    optional int32 auto_ready_time = 3; //倒计时时间
+}
+
+//抢地主通知
+message GrabLandLordNotify {
+    optional int32 playerid = 1; //叫地主位置
+    optional int32 score = 2; //叫分  0不抢
+    optional int32 nextid = 3; //下一个叫地主位置  0没有
+    repeated int32 scoreList = 4; //可以叫哪些分数
+    optional int32 auto_ready_time = 5; //倒计时时间
+}
+
+//抢地主结果通知
+message GrabResultNotify {
+    message Player {
+        optional int32 playerid = 1;
+        optional int32 beishu = 2;
+    }
+
+    optional int32 lordid = 1; //地主位置 0没有 重新发牌
+    optional int32 score = 2; //底分
+    repeated int32 di_cards = 3; //底牌，只有lordpos不为0时才有底牌
+    optional int32 auto_op_time = 4;
+    repeated Player players = 5;
+}
+
+//开始游戏请求
+message StartGameRet {
+
+}
+//开始游戏回复
+message StartGameReq {
+    optional bool is_ok = 1;
+    optional string desc = 2;
+}
+//取消准备通知
+message CancelReadyNotify {
+    optional int32 playerid = 1;
+}
+//房主改变通知
+message OwnerChangeNotify {
+    optional int32 old_ownerid = 1;
+    optional int32 new_ownerid = 2;
+}
+
+//牌友圈 快速组局 踢人倒计时
+message KickPlayerExpire
+{
+    required int32 expire = 1;
+}

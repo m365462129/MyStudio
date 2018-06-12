@@ -1,0 +1,242 @@
+package Game;
+
+message Poker
+{
+    required string number = 1;
+    required string colour = 2;
+}
+
+message DealPokerRsp
+{
+	required int32 type = 1;
+	repeated Poker pokers = 2;
+}
+
+
+message ComputePokerReq
+{
+	
+}
+
+message ComputePokerRsp
+{
+	required string combo_type = 1;				//cow0-10(没牛-牛10,cow1 cow2.....) silvercow(银牛) goldcow(金牛), samll(五小), boom(炸弹) straight(A2345顺)
+}
+
+message SettleAccounts
+{
+	required int32 playerId = 1;
+    required int32 score = 2;
+	required string combo_type = 3;				//cow0-10(没牛-牛10,cow1 cow2.....) silvercow(银牛) goldcow(金牛), samll(五小), boom(炸弹) straight(A2345顺)
+	repeated Poker pokers  = 4;
+}
+
+message LastSettleAccounts
+{
+	required int32 playerId = 1;
+    required int32 score = 2;					//总结算积分
+	required int32 win_count = 3;				//胜利次数
+	required int32 lost_count = 4;				//失败次数
+	required int32 cow_count = 5;				//有牛局数
+	required int32 not_cow_count = 6;			//没有牛局数
+}
+
+
+message ComboTypeInfo
+{
+	required int32 player_id = 1;
+}
+
+
+message BetReq
+{
+	required int32 bet_type = 1;				//倍数选择 1:2倍  2:3倍 3:4倍 5:10倍 
+}
+
+message BetRsp
+{
+	required string err_no = 1;				 
+}
+
+
+//暂离请求
+message TemporaryLeaveReq
+{
+	required bool is_temporary_leave = 1;	
+}
+
+message TemporaryLeaveRsp
+{
+	required string err_no = 1;		
+}
+
+message SetBankerBroadcast
+{
+	required int32 player_id = 1;	
+	repeated int32 scramble_banker_list = 2;		//参与抢庄的玩家
+}
+
+message BetBroadcast
+{
+	required int32 player_id = 1;
+	required int32 bet = 2;						//倍数
+}
+
+message DealPokerBroadcast
+{
+	required int32 type = 1;
+	repeated Poker pokers = 2;
+}
+
+message ComputePokerBroadcast
+{
+	required int32 player_id = 1;	
+}
+
+message  SettleAccountsBroadcast
+{
+	repeated SettleAccounts settleAccounts = 1;
+}
+
+message  AgoSettleAccountsBroadcast
+{
+	repeated SettleAccounts settleAccounts = 1;
+}
+
+
+message  LastSettleAccountsBroadcast
+{
+	repeated LastSettleAccounts LastSettleAccounts = 1;
+}
+
+//抢庄请求
+message ScrambleBankerReq
+{
+	required bool is_scramble = 1;		//是否抢庄
+}
+
+//抢庄应答
+message ScrambleBankerRsp
+{
+	required string err_no = 1;		
+	required bool is_scramble = 2;		//是否抢庄
+}
+
+//抢庄广播
+message ScrambleBankerBroadcast
+{
+	required int32 player_id = 1;
+	required bool is_scramble = 2;		//是否抢庄
+}
+
+//暂离广播
+message TemporaryLeaveBroadcast
+{
+	required int32 player_id = 1;
+	required bool is_temporary_leave = 2;
+	
+}
+
+
+
+//等待玩家说话
+message WaitSpeakBroadcast
+{
+	required int32 player_id = 1;		//待说话玩家id
+	optional bool canCompare = 2 [default = true];	//是否能够比牌
+	repeated int32 canBetScoreList = 3;		//可以下注的分数 列表
+	
+}
+
+//弃牌请求
+message DropPokersReq
+{
+
+}
+
+//弃牌返回
+message DropPokersRsp
+{
+	required int32 errCode = 1;			//错误码，为0为success
+	optional string errMsg = 2;			//错误信息，当errCode不为0时有效
+	optional string combo_type = 3;		//手里的牌的牛
+	repeated Poker pokers = 4;			//手里的牌
+}
+
+//弃牌广播
+message DropPokersBroadcast
+{
+	required int32 player_id = 1;	
+}
+
+
+
+//看牌请求
+message CheckPokersReq
+{
+
+}
+
+//看牌返回
+message CheckPokersRsp
+{
+	required int32 errCode = 1;			//错误码，为0为success
+	optional string errMsg = 2;			//错误信息，当errCode不为0时有效
+	optional string combo_type = 3;		//手里的牌的牛
+	repeated Poker pokers = 4;			//手里的牌
+}
+
+//看牌广播
+message CheckPokersBroadcast
+{
+	required int32 player_id = 1;
+}
+
+//比牌请求
+message ComparePokersReq
+{
+	required int32 player_id = 1;		//比牌的目标玩家
+}
+
+//比牌返回
+message ComparePokersRsp
+{
+	required int32 errCode = 1;			//错误码，为0为success
+	optional string errMsg = 2;			//错误信息，当errCode不为0时有效
+	optional int32 winnerPlayer_id = 3;	//赢家id
+	optional string combo_type = 4;		//当自己失败时，此字段有效
+	repeated Poker pokers = 5;			//当自己失败时，此字段有效
+}
+
+//比牌广播
+message ComparePokersBroadcast
+{
+	required int32 srcPlayer_id = 1;	//发起比牌的玩家
+	required int32 dstPlayer_id = 2;	//被比牌的玩家
+	optional int32 winnerPlayer_id = 3;	//赢家id
+}
+
+//跟注请求
+message CallBetReq
+{
+	required int32 betScore = 1;		//跟注分
+}
+
+//跟注返回
+message CallBetRsp
+{
+	required int32 errCode = 1;			//错误码，为0为success
+	optional string errMsg = 2;			//错误信息，当errCode不为0时有效
+	optional int32 betScore = 3;		//跟注分
+}
+
+//跟注广播
+message CallBetBroadcast
+{
+	required int32 betScore = 1;
+	required int32 betType = 2;		//跟注类型,1：跟注,2：加注
+}
+
+
+
+

@@ -1,0 +1,352 @@
+package Room;
+
+message FreeRoomState
+{
+	required int32 player_id = 1;	
+	required int32 sponsor = 2;		//发起者player_id
+	optional bool agree = 3;			//是否是同意，当isAnswered为true是有效
+}
+
+
+
+
+message CommonRsp
+{
+	required int32 err_no = 1;
+}
+
+message RoomInfo
+{
+	required int32 id = 1;
+	required string game = 2;
+	required int32 service = 3; 
+}
+
+message RoomListReq
+{
+	
+}
+
+message RoomListRsp
+{
+	repeated RoomInfo list = 1;
+}
+
+message RoomInformation
+{
+	required int32 roomNum = 1;  
+	required int32 roomHostID = 2;
+	required int32 curRoundNum = 3;
+	required int32 totalRoundNum = 4;
+	required int32 roomStatus = 5; // 1在游戏中  0没在游戏中 
+	required int32 serverNow = 6;    //服务器当前时间戳
+	optional int32 roomId = 7;
+}
+
+message SeatInformation
+{
+	required int32 seatNum = 1;
+	required int32 userID = 2;
+	required int32 readyStatus =3;
+	required int32 curScore = 4;
+	required bool isConfirmed = 5;
+	required bool isOffline = 6;
+	required bool isTemporaryLeave = 7;
+	required int32 gameCount = 8;
+}
+
+message EnterReq
+{
+	required int32 room_id = 1;	
+}
+
+message EnterRsp
+{
+  	required string err_no = 1;
+    required int32 isJoinAfterStart=2;
+}
+
+
+message ReadyReq
+{
+	required int32 isReady = 1;
+	required int32 userID = 2;
+}
+
+message ReadyRsp
+{
+	required string err_no = 1;
+}
+
+message Poker
+{
+	required int32 Color = 1;
+	required int32 Number = 2;
+}
+
+message PokersOfPlayer
+{
+	repeated Poker Pokers = 1;
+	optional int32 curRoundNum = 2;
+}
+
+message PokersOfMatchingReq
+{
+	required Poker poker1 =1;
+	required Poker poker2 =2;
+	required Poker poker3 =3;
+	required Poker poker4 =4;
+	required Poker poker5 =5;
+	required Poker poker6 =6;
+	required Poker poker7 =7;
+	required Poker poker8 =8;
+	required Poker poker9 =9;
+	required int32 userID = 10;
+
+}
+
+message PokersOfMatchingRsp
+{
+	required int32 err_no = 1;
+	repeated Poker pokers =2;
+}
+
+message PokersOfSubmitReq
+{
+	required Poker poker1 =1;
+	required Poker poker2 =2;
+	required Poker poker3 =3;
+	required Poker poker4 =4;
+	required Poker poker5 =5;
+	required Poker poker6 =6;
+	required Poker poker7 =7;
+	required Poker poker8 =8;
+	required int32 pokerType = 9;
+	required int32 userID = 10;
+}
+
+message PokersOfSubmitRsp
+{
+    optional int32 errno = 1;
+}
+
+message ResultOfPlayer
+{
+	required int32 userID =1;
+	required int32 seatNum = 2;
+	repeated Poker pokers = 3;
+	repeated int32 scoreOfPokers = 4;
+	optional int32 scoreOfXipai = 5;
+	optional int32 scoreOfRound = 6;
+	required int32 totalScore = 7;
+	repeated int32 typeOfXipai = 8;
+	required bool isSurrender = 9;
+	required int32 curScore = 10;
+	repeated int32 XipaiScores = 11; //每种喜牌的得分
+	repeated int32 typeOfPokers = 12;
+	required int32 finalScore = 13; //小局最终得分(用于小结算界面)
+}
+
+message ResultOfComparing
+{
+	required string err_no = 1;
+	repeated ResultOfPlayer players = 2;
+	required int32 curRoundNum = 3;
+}
+
+
+
+message SynchronizeBroadcast
+{
+  required RoomInformation room_info = 1;
+  repeated SeatInformation seatInfoList = 2;    //已经在房间中玩家
+}
+
+
+
+
+
+message PokerOfSubmitRsp
+{
+
+}
+
+message SurrenderReq
+{
+	required int32 userID = 1;
+}
+
+message SurrenderRsp
+{
+
+}
+
+message TableSurrender
+{
+	required int32 userID  = 1;
+}
+
+message StartReq
+{
+	
+}
+
+message StartRsp
+{
+	required string err_no = 1;
+}
+
+message LastSettleAccounts
+{
+	required int32 userId = 1;
+	required int32 totalScore = 2;          //总结算积分
+	required int32 xipaiCount = 3;        //次数
+	required int32 tongguanCount = 4;        
+	repeated int32 paiWinCount = 5;         
+	optional string startTime = 6; 
+  	optional string endTime = 7;  
+}
+
+message  LastSettleAccountsBroadcast
+{
+  repeated LastSettleAccounts LastSettleAccounts = 1;
+  optional int32 free_sponsor=20;
+}
+
+message PosInfo
+{
+  required int32 pos_index =1;  //座位号
+  required int32 player_id =2;  //座位号对应的玩家ID,没有玩家则为0
+  required int32 is_ready = 3;    //座位上入住的玩家是否准备就绪(1:准备 0:未准备),没有玩家值也为0
+}
+
+message ReadyBroadcast
+{
+  required PosInfo pos_info = 1;      //玩家准备,广播
+}
+
+message EnterBroadcast
+{
+  required SeatInformation seatInfo = 1;      //新进入房间玩家广播
+  optional int32 playercnt = 2;
+}
+
+
+message LeaveReq
+{
+	required int32 userID = 1;
+}
+
+message LeaveRsp
+{
+	required string err_no = 1;
+}
+
+message LeaveBroadcast
+{
+	required int32 player_id = 1;
+	optional int32 playercnt = 2;
+}
+
+message FreeReq
+{
+	required bool agree = 1;		//agree==true，请求解散房间或同意解散房间；false，拒绝解散
+}
+
+message FreeRsp
+{
+	required string err_no = 1;
+	optional bool agree = 2;		//我是否同意的状态
+}
+
+message FreeBroadcast
+{	
+	repeated FreeRoomState freeRoomStateList = 1;	
+	required int32 expire = 2;  //到期时间
+	
+}
+
+message FreeSuccessBroadcast
+{	
+}
+
+message TemporaryLeaveReq
+{
+	required bool is_temporary_leave = 1;
+	required int32 player_id =2;	
+}
+
+message TemporaryLeaveRsp
+{
+	required string err_no = 1;		
+}
+
+//暂离广播
+message TemporaryLeaveBroadcast
+{
+	required int32 player_id = 1;
+	required bool is_temporary_leave = 2;
+	
+}
+
+message ConfirmBroadcast
+{
+   required int32 seatNum=1;
+   required int32 userID=2;
+}
+
+message DisconnBroadcast
+{
+	required int32 player_id = 1;
+}
+
+message ReconnectInfo
+{
+	required int32 reconnectStatus =1;
+	required RoomInformation roomInfo = 2;
+	repeated SeatInformation seatInfo = 3;
+	repeated Poker pokers = 4;
+	repeated ResultOfPlayer players = 5;
+	required int32 isJoinAfterStart = 6;
+	optional int32 playercnt =7;
+}
+
+message ReconnBroadcast
+{
+  required int32 player_id = 1;
+}
+
+//房主易位 通知
+message OwnerChangeBroadcast
+{
+   required int32 userid = 1;
+   required int32 seatnum = 2;
+   required int32 playernum = 3;
+}
+
+//牌友圈 快速组局 踢人倒计时
+message KickPlayerExpire
+{
+   required int32 expire = 1;  
+}
+
+message KickPlayerReq
+{
+  required int32 player_id = 1;
+}
+
+message KickPlayerRsp
+{
+  required string err_no = 1;
+}
+
+message KickPlayerNotify
+{
+	required string err_no = 1;
+}
+
+message RoomAwardMessage
+{
+  required uint64 UserID = 1; // 获得奖励的玩家的ID
+  required string Message = 2; // 奖励信息（由运营系统和客户端协商格式）
+}
