@@ -155,22 +155,29 @@ end
 -- 绑定loginModel层事件，模块内交互
 function LoginModule:on_model_event_bind()
 	self:subscibe_model_event("Event_Login_LoginSucess", function(eventHead, eventData)
+		self.isLogin = true
+		local IsConstGame = AppData.IsConstGame
+		if IsConstGame then
+			--省份id=1,游戏id=6
+			ModuleCache.GameManager.curProvince = 1
+			ModuleCache.GameManager.curGameId = 6
+			ModuleCache.GameManager.set_used_playMode(ModuleCache.GameManager.curProvince, ModuleCache.GameManager.curGameId)
+		end
+
 		if ModuleCache.GameManager.curProvince ~= 0 and ModuleCache.GameManager.curGameId ~= 0 then
 			ModuleCache.ModuleManager.show_module_only("henanmj", "hall")
 		end
-		self.isLogin = true
 
-		if(ModuleCache.GameManager.curProvince == 0) then
-			--ModuleCache.ModuleManager.show_module('henanmj',"setprovince")
-            ModuleCache.ModuleManager.show_public_module("operate");
-			return
-		end
+		if(not IsConstGame) then
+			if(ModuleCache.GameManager.curProvince == 0) then
+				ModuleCache.ModuleManager.show_public_module("operate");
+				return
+			end
 
-		if(ModuleCache.GameManager.curGameId == 0) then
---			ModuleCache.ModuleManager.show_module('henanmj',"setprovince")
---			ModuleCache.ModuleManager.show_module("henanmj", "setplaymode",ModuleCache.GameManager.curProvince)
-            ModuleCache.ModuleManager.show_public_module("operate");
-			return
+			if(ModuleCache.GameManager.curGameId == 0) then
+				ModuleCache.ModuleManager.show_public_module("operate");
+				return
+			end
 		end
 	end)
 

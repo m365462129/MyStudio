@@ -168,6 +168,7 @@ AppData.Common_Net_Url_Root_Directory = "dhahqp/bullfight"
 AppData.App_Name = AppData.Const_App_Name
 -- 游戏名
 AppData.Game_Name = nil
+AppData.IsConstGame = true --固定游戏
 
 
 AppData.GVoiceCloudID = "1009944782"
